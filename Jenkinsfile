@@ -24,7 +24,7 @@ pipeline{
                 sh '''
                 echo "Running tests..."
                    
-                   docker run -it -d --name rohitchat-bot -p 9001:8501 ${IMAGE_NAME}
+                   docker run -it -d --name chatbot${GIT_COMMIT} -p 9001:8501 ${IMAGE_NAME}
                    '''
             }
         }

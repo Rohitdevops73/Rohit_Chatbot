@@ -1,12 +1,12 @@
 pipeline{
     agent any
     environment{
-        IMAGE_NAME='rohitchatbot:${GIT_COMMIT}'
+        IMAGE_NAME = "rohitchatbot:${GIT_COMMIT}"
     }
     
     stages{
         stage('Git-checkout'){
-s           steps{
+           steps{
                 git url: 'https://github.com/Rohitdevops73/Rohit_Chatbot.git'  ,branch: 'main' 
            }
         }
@@ -19,7 +19,7 @@ s           steps{
                 // Add build commands here
             }
         }
-        stage('testing-stage'){
+        stage('Testing-stage'){
             steps{
                 sh '''
                 echo "Running tests..."

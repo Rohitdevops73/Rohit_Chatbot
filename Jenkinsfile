@@ -23,11 +23,29 @@ pipeline{
             steps{
                 sh '''
                 echo "Running tests..."
-                
-                   docker run -it -d --name rohit${GIT_COMMIT} -p 9004:8501 ${IMAGE_NAME}
+                   docker kill rohitchat-bot || true
+                   docker rm rohitchat-bot || true
+                   docker run -it -d --name rohitchat-bot -p 9004:8501 ${IMAGE_NAME}
                    '''
             }
         }
-        
+        stage('Login to Docker Hub') {
+            steps {
+                script {
+                    withCredentials([usernamePassword(credentialsId: 'docker-hub-creds', usernameVariable: 'DOCKER_USERNAME', passwordVariable: 'DOCKER_PASSWORD')]) {
+                        // Login to Docker Hub
+                        sh "echo $DOCKER_PASSWORD | docker login -u $DOCKER_USERNAME --password-stdin"
+                    }
+                }
+            }
+        }
+        stage('Push to Docker Hub'){
+            steps{
+                sh '''
+                echo "Pushing image to Docker Hub..."
+                docker push ${IMAGE_NAME}
+                '''
+            }
+        }
 }
 }

@@ -1,7 +1,7 @@
 pipeline{
     agent any
     environment{
-        IMAGE_NAME = "rohitchatbot:${GIT_COMMIT}"
+        IMAGE_NAME = "rohitkube/chatbot:${GIT_COMMIT}"
     }
     
     stages{
@@ -23,6 +23,7 @@ pipeline{
             steps{
                 sh '''
                 echo "Running tests..."
+                
                    docker run -it -d --name rohit${GIT_COMMIT} -p 9004:8501 ${IMAGE_NAME}
                    '''
             }

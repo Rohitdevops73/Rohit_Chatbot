@@ -9,10 +9,10 @@ RUN apt-get update && apt-get install -y \
     libglib2.0-0 && \
     #remove the apt cache to reduce image size
     rm -rf /var/lib/apt/lists/* 
-    
+
 COPY . /app/
 RUN pip install --upgrade pip && pip install -r requirements.txt
 
 
 EXPOSE 8501
-CMD ["streamlit", "run", "app.py", "--server.port=8501", "--server.address=0.0.0.0"]
+CMD ["streamlit", "run", "my_app.py", "--server.port=8501", "--server.address=0.0.0.0"]

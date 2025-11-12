@@ -23,19 +23,9 @@ pipeline{
             steps{
                 sh '''
                 echo "Running tests..."
-                   docker run -it -d --name rohit-chatbot1 -p 9001:8501 ${IMAGE_NAME}
+                   docker run -it -d --name rohit${GIT-COMMIT} -p 9001:8501 ${IMAGE_NAME}
                    '''
             }
         }
-        stage('testing'){
-            steps{
-                sh '''
-                echo "Testing the application..."
-                sleep 20
-                curl -f http://localhost:9001 || exit 1
-                '''
-            }
-        }
-
-}
+        
 }

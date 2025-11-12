@@ -23,8 +23,8 @@ pipeline{
             steps{
                 sh '''
                 echo "Running tests..."
-                   docker kill rohitchat-bot || true
-                   docker rm rohitchat-bot || true
+                   docker kill rohitchat-bot 
+                   docker rm rohitchat-bot
                    docker run -it -d --name rohitchat-bot -p 9004:8501 ${IMAGE_NAME}
                    '''
             }

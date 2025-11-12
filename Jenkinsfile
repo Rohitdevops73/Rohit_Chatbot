@@ -23,7 +23,7 @@ pipeline{
             steps{
                 sh '''
                 echo "Running tests..."
-                   docker run -it -d --name rohit${GIT-COMMIT} -p 9001:8501 ${IMAGE_NAME}
+                   docker run -it -d --name rohit${GIT_COMMIT} -p 9001:8501 ${IMAGE_NAME}
                    '''
             }
         }

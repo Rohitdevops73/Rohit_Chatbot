@@ -23,7 +23,7 @@ pipeline{
             steps{
                 sh '''
                 echo "Running tests..."
-                   docker run -it -d --name ${IMAGE_NAME}_container -p 9001:8501 ${IMAGE_NAME}
+                   docker run -it -d --name rohit-chatbot1 -p 9001:8501 ${IMAGE_NAME}
                    '''
             }
         }

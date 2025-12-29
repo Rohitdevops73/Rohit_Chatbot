@@ -24,10 +24,17 @@ pipeline{
                 sh 'pwd; cd eks/; terraform show -no-clour tfplan > plan.txt'
             }
         }
-        stage("Approval"){
+        stage('Approval'){
             steps{
-
+                script{
+                    def plan = readFile 'eks/plan.txt'
+                    input message: "Do you want to proceed with terraform actions..?"
+                    parameters: [text(name: 'Plan',description: 'Please review your plan',defaultValue: plan)]
+                }
             }
+        }
+        stage('Apply/Destroy'){
+            
         }
     }
 }

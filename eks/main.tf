@@ -96,9 +96,8 @@ resource "aws_subnet" "rohitchatbot_subnet" {
         }
     }
     #create EKS node group
-    resource "aws_eks_node_group" "rohitchatbot_eks_cluster" {
-        cluster_name = aws_eks_cluster.rohitchatbot_eks_cluster.name    
-        node_group_name = "rohitchatbot-node-group"
+    resource "aws_eks_node_group" "rohitchatbot_eks_node_group" {
+        name = aws_eks_cluster.rohitchatbot_eks_node_group.name    
         node_role_arn = aws_iam_role.rohitchatbot_eks_node_role.arn
         subnet_ids = aws_subnet.rohitchatbot_subnet[*].id
         
@@ -108,11 +107,12 @@ resource "aws_subnet" "rohitchatbot_subnet" {
             min_size = 1
         }
         instance_types = ["c7i-flex.large"]
+        
         remote_access {
             ec2_ssh_key = var.ec2_ssh_key_name
             source_security_group_ids = [aws_security_group.rohitchatbot_node_sg.id]
     }
-
+    }
     # IAM role creation
 
     resource "aws_iam_role" "rohitchatbot_cluster_role" {
@@ -174,3 +174,7 @@ resource "aws_subnet" "rohitchatbot_subnet" {
             policy_arn = "arn:aws:iam::aws:policy/AmazonEC2ContainerRegistryReadOnly"
             
     }
+
+   
+
+    

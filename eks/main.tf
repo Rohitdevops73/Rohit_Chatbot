@@ -26,7 +26,7 @@ resource "aws_subnet" "rohitchatbot_subnet" {
     }
  }
   # internet gateway creation
-    resource "aws_igw" "rohitchatbot_igw" {
+    resource "aws_internet_gateway" "rohitchatbot_igw" {
         vpc_id = aws_vpc.rohitchatbot_vpc.id
 
         tags = {
@@ -34,7 +34,7 @@ resource "aws_subnet" "rohitchatbot_subnet" {
         }
     }
     # route table creation
-    resource "aws_RT" "rohitchatbot_route_table" {
+    resource "aws_route_table" "rohitchatbot_route_table" {
         vpc_id = aws_vpc.rohitchatbot_vpc.id
         route = {
             cidr_block = "0.0.0.0/0"
@@ -94,6 +94,9 @@ resource "aws_subnet" "rohitchatbot_subnet" {
             subnet_ids = aws_subnet.rohitchatbot_subnet[*].id
             security_group_ids = [aws_security_group.rohitchatbot_cluster_sg.id]
         }
+        depends_on = [
+            aws_iam_role_policy_attachment.rohitchatbot_cluster_role_policy
+        ]
     }
     #create EKS node group
     resource "aws_eks_node_group" "rohitchatbot_eks_node_group" {
@@ -112,6 +115,11 @@ resource "aws_subnet" "rohitchatbot_subnet" {
             ec2_ssh_key = var.ec2_ssh_key_name
             source_security_group_ids = [aws_security_group.rohitchatbot_node_sg.id]
     }
+    depends_on = [
+        aws_iam_role_policy_attachment.rohitchatbot_node_role_policy,
+        aws_iam_role_policy_attachment.rohitchatbot_cni_policy,
+        aws_iam_role_policy_attachment.rohitchatbot_ec2_container_registry_policy
+    ]
     }
     # IAM role creation
 
@@ -133,7 +141,7 @@ resource "aws_subnet" "rohitchatbot_subnet" {
         EOF
     }
 
-    resource "aws_iam_role_policy_attchment" "rohitchatbot_cluster_role_policy" {
+    resource "aws_iam_role_policy_attachment" "rohitchatbot_cluster_role_policy" {
         role = aws_iam_role_rohitchatbot_cluster_role.name
         policy_arn = "arn:aws:iam::aws:policy/AmazonEKSClusterPolicy"
         
@@ -159,17 +167,17 @@ resource "aws_subnet" "rohitchatbot_subnet" {
         
     }
 
-      resource "aws_iam_role_policy_attchment" "rohitchatbot_node_role_policy" {
+      resource "aws_iam_role_policy_attachment" "rohitchatbot_node_role_policy" {
         role = rohitchatbot_node_group_role.name
         policy_arn = "arn:aws:iam::aws:policy/AmazonEKSWorkerNodePolicy"
         
     }
-      resource "aws_iam_role_policy_attchment" "rohitchatbot_cni_policy" {
+      resource "aws_iam_role_policy_attachment" "rohitchatbot_cni_policy" {
             role = rohitchatbot_node_group_role.name
             policy_arn = "arn:aws:iam::aws:policy/AmazonEKS_CNI_Policy"
             
     }
-      resource "aws_iam_role_policy_attchment" "rohitchatbot_ec2_container_registry_policy" {
+      resource "aws_iam_role_policy_attachment" "rohitchatbot_ec2_container_registry_policy" {
             role = rohitchatbot_node_group_role.name
             policy_arn = "arn:aws:iam::aws:policy/AmazonEC2ContainerRegistryReadOnly"
             

@@ -72,16 +72,16 @@ resource "aws_subnet" "rohitchatbot_subnet" {
         egress {
             from_port = 0
             to_port = 0
-            protocol = -1
+            protocol = "-1"
             cidr_blocks = ["0.0.0.0/0"]
         }
         tags ={
             Name = "rohitchatbot-node-sg"
         }
         ingress {
-            from_port = 80
-            to_port = 80
-            protocol = -1
+            from_port = 0
+            to_port = 0
+            protocol = "-1"
             cidr_blocks = ["0.0.0.0/0"]
         }
     }

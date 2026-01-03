@@ -28,7 +28,7 @@ pipeline{
             steps{
                 script{
                     def plan = readFile 'eks/tfplan.txt'
-                    input message: "Do you want to proceed with terraform actions..?"
+                    input message: "Do you want to proceed with terraform actions..?",
                     parameters: [text(name: 'Plan',description: 'Please review your plan',defaultValue: plan)]
                 }
             }

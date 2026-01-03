@@ -38,7 +38,7 @@ resource "aws_subnet" "rohitchatbot_subnet" {
         vpc_id = aws_vpc.rohitchatbot_vpc.id
         route = {
             cidr_block = "0.0.0.0/0"
-            gateway_id = aws_igw.rohitchatbot_igw.id
+            gateway_id = aws_internet_gateway.rohitchatbot_igw.id
         }
         tags = {
             Name = "rohitchatbot_route_table"
@@ -48,7 +48,7 @@ resource "aws_subnet" "rohitchatbot_subnet" {
     resource "aws_route_table_association" "rohitchatbot_route_table_association" {
         count = 2
         subnet_id = aws_subnet.rohitchatbot_subnet[count.index].id
-        route_table_id = aws_RT.rohitchatbot_route_table.id
+        route_table_id = aws_route_table.rohitchatbot_route_table.id
     }
     # security group creation
     resource "aws_security_group" "rohitchatbot_cluster_sg" {
@@ -142,7 +142,7 @@ resource "aws_subnet" "rohitchatbot_subnet" {
     }
 
     resource "aws_iam_role_policy_attachment" "rohitchatbot_cluster_role_policy" {
-        role = aws_iam_role_rohitchatbot_cluster_role.name
+        role = aws_iam_role.rohitchatbot_cluster_role.name
         policy_arn = "arn:aws:iam::aws:policy/AmazonEKSClusterPolicy"
         
     }

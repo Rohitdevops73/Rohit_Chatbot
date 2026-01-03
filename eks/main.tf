@@ -89,7 +89,7 @@ resource "aws_subnet" "rohitchatbot_subnet" {
     #create EKS cluster
     resource "aws_eks_cluster" "rohitchatbot_eks_cluster" {
         name = "rohitchatbot-eks-cluster"
-        role_arn = aws_iam_role.rohitchatbot_eks_role.arn
+        role_arn = aws_iam_role.rohitchatbot_cluster_role.arn
         vpc_config {
             subnet_ids = aws_subnet.rohitchatbot_subnet[*].id
             security_group_ids = [aws_security_group.rohitchatbot_cluster_sg.id]
@@ -101,7 +101,7 @@ resource "aws_subnet" "rohitchatbot_subnet" {
     #create EKS node group
     resource "aws_eks_node_group" "rohitchatbot_eks_node_group" {
         name = aws_eks_cluster.rohitchatbot_eks_node_group.name    
-        node_role_arn = aws_iam_role.rohitchatbot_eks_node_role.arn
+        node_role_arn = aws_iam_role.rohitchatbot_node_group_role.arn
         subnet_ids = aws_subnet.rohitchatbot_subnet[*].id
         
         scaling_config {

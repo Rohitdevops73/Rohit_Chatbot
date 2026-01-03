@@ -115,7 +115,7 @@ resource "aws_subnet" "rohitchatbot_subnet" {
         remote_access {
             ec2_ssh_key = var.ssh_key_name
             source_security_group_ids = [aws_security_group.rohitchatbot_node_sg.id]
-    }
+        }
     depends_on = [
         aws_iam_role_policy_attachment.rohitchatbot_node_role_policy,
         aws_iam_role_policy_attachment.rohitchatbot_cni_policy,

@@ -47,7 +47,7 @@ resource "aws_subnet" "rohitchatbot_subnet" {
     # route table association
     resource "aws_route_table_association" "rohitchatbot_route_table_association" {
         count = 2
-        subnet_id = element(aws_subnet.rohitchatbot_subnet[count.index].id
+        subnet_id = aws_subnet.rohitchatbot_subnet[count.index].id
         route_table_id = aws_RT.rohitchatbot_route_table.id
     }
     # security group creation

@@ -36,7 +36,7 @@ resource "aws_subnet" "rohitchatbot_subnet" {
     # route table creation
     resource "aws_route_table" "rohitchatbot_route_table" {
         vpc_id = aws_vpc.rohitchatbot_vpc.id
-        route = {
+        route {
             cidr_block = "0.0.0.0/0"
             gateway_id = aws_internet_gateway.rohitchatbot_igw.id
         }
@@ -112,7 +112,7 @@ resource "aws_subnet" "rohitchatbot_subnet" {
         instance_types = ["c7i-flex.large"]
         
         remote_access {
-            ec2_ssh_key = var.ec2_ssh_key_name
+            ec2_ssh_key = var.ssh_key_name
             source_security_group_ids = [aws_security_group.rohitchatbot_node_sg.id]
     }
     depends_on = [

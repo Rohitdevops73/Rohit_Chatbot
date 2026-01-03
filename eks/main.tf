@@ -106,9 +106,9 @@ resource "aws_subnet" "rohitchatbot_subnet" {
         subnet_ids = aws_subnet.rohitchatbot_subnet[*].id
         
         scaling_config {
-            desired_size = 2
-            max_size = 3
-            min_size = 1
+            desired_size = 3
+            max_size = 50
+            min_size = 3
         }
         instance_types = ["c7i-flex.large"]
         
@@ -116,6 +116,7 @@ resource "aws_subnet" "rohitchatbot_subnet" {
             ec2_ssh_key = var.ssh_key_name
             source_security_group_ids = [aws_security_group.rohitchatbot_node_sg.id]
         }
+        
     depends_on = [
         aws_iam_role_policy_attachment.rohitchatbot_node_role_policy,
         aws_iam_role_policy_attachment.rohitchatbot_cni_policy,

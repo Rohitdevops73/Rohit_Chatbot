@@ -1,6 +1,6 @@
 pipeline{
     parameters{
-       choice (name:'terraformActions' , choice: ['apply','destroy'], description: 'choose your terraform action')
+       choice (name:'terraformActions' , choices: ['apply','destroy'], description: 'choose your terraform action')
     }
     environment{
         AWS_ACCESS_KEY_ID = credentials('AWS_ACCESS_KEY_ID')

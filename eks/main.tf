@@ -168,17 +168,17 @@ resource "aws_subnet" "rohitchatbot_subnet" {
     }
 
       resource "aws_iam_role_policy_attachment" "rohitchatbot_node_role_policy" {
-        role = rohitchatbot_node_group_role.name
+        role = aws_iam_role.rohitchatbot_node_group_role.name
         policy_arn = "arn:aws:iam::aws:policy/AmazonEKSWorkerNodePolicy"
         
     }
       resource "aws_iam_role_policy_attachment" "rohitchatbot_cni_policy" {
-            role = rohitchatbot_node_group_role.name
+            role = aws_iam_role.rohitchatbot_node_group_role.name
             policy_arn = "arn:aws:iam::aws:policy/AmazonEKS_CNI_Policy"
             
     }
       resource "aws_iam_role_policy_attachment" "rohitchatbot_ec2_container_registry_policy" {
-            role = rohitchatbot_node_group_role.name
+            role = aws_iam_role.rohitchatbot_node_group_role.name
             policy_arn = "arn:aws:iam::aws:policy/AmazonEC2ContainerRegistryReadOnly"
             
     }

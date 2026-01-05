@@ -31,10 +31,12 @@
     ```bash
     deactivate
     ```
+==================
+# ** FLOW CHART **
 
-![alt text](image-1.png)
+![alt text](Images/image-1.png)
 
-![alt text](image.png)
+#**Final Output**
 
-![alt text](image-2.png)
+![alt text](Images/image-2.png)
 

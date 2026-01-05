@@ -1,7 +1,7 @@
 pipeline{
     agent any
     environment{
-        IMAGE_NAME = "rohitkube/Rohit_chatbot:${GIT_COMMIT}"
+        IMAGE_NAME = "rohitkube/rohit_chatbot:${GIT_COMMIT}"
     }
     
     stages{

@@ -32,11 +32,11 @@
     deactivate
     ```
 ==================
-# ** FLOW CHART **
+**FLOW CHART**
 
 ![alt text](Images/image-1.png)
 
-#**Final Output**
+**Final Output**
 
 ![alt text](Images/image-2.png)
 

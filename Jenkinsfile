@@ -63,7 +63,7 @@ pipeline{
                     sh '''
                     sed -i 's|replace|${IMAGE_NAME}|g' Deployment.yml
                     echo "Deploying to EKS..."
-                    kubectl apply -f Deployment.yaml -n ${NAMESPACE}
+                    kubectl apply -f Deployment.yml -n ${NAMESPACE}
                     '''
                 }
             }

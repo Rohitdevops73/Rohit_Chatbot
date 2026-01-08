@@ -51,7 +51,7 @@ pipeline{
             }
         }
       stage('Backup Terraform State') {
-    steps {
+            steps {
         script {
             def bucketName = "rohitchatbot-terraform-backup-bucket"
             def region     = "ap-south-1" // adjust as per your region
@@ -85,7 +85,10 @@ pipeline{
             aws s3 cp ${statePath} s3://${bucketName}/${s3Prefix}
             """
         }
-    }
+      }
 }
+    }
 
+}
+    
 

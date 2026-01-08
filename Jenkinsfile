@@ -59,18 +59,17 @@ pipeline{
         }
         stage('Deploy to EKS'){
             steps{
-                withKubeConfig(caCertificate: '', clusterName: ' rohitchatbot-eks-cluster', contextName: '', credentialsId: 'kube', namespace: 'chatbot', restrictKubeConfigAccess: false, serverUrl: 'https://AC34E1B7B9F657A1F88959E715CB29AD.gr7.ap-south-1.eks.amazonaws.com') {
-                    sh '''
-                    sed -i 's|replace|${IMAGE_NAME}|g' Deployment.yml
-                    echo "Deploying to EKS..."
-                    kubectl apply -f Deployment.yml -n ${NAMESPACE}
-                    '''
+                withKubeConfig(caCertificate: '', clusterName: 'rohitchatbot-eks-cluster', contextName: '', credentialsId: 'kube', namespace: 'chatbot', restrictKubeConfigAccess: false, serverUrl: 'https://AC34E1B7B9F657A1F88959E715CB29AD.gr7.ap-south-1.eks.amazonaws.com') {
+                    
+                    sh "sed -i 's|replace|${IMAGE_NAME}|g' Deployment.yml"
+                    sh "kubectl apply -f Deployment.yml -n ${NAMESPACE}"
+                    
                 }
             }
         }
         stage('Verify Deployment'){
             steps{
-                withKubeConfig(caCertificate: '', clusterName: ' rohitchatbot-eks-cluster', contextName: '', credentialsId: 'kube', namespace: 'chatbot', restrictKubeConfigAccess: false, serverUrl: 'https://AC34E1B7B9F657A1F88959E715CB29AD.gr7.ap-south-1.eks.amazonaws.com') {
+                withKubeConfig(caCertificate: '', clusterName: 'rohitchatbot-eks-cluster', contextName: '', credentialsId: 'kube', namespace: 'chatbot', restrictKubeConfigAccess: false, serverUrl: 'https://AC34E1B7B9F657A1F88959E715CB29AD.gr7.ap-south-1.eks.amazonaws.com') {
                 sh '''
                 kubectl get pods -n ${NAMESPACE}
                 kubectl get svc -n ${NAMESPACE}

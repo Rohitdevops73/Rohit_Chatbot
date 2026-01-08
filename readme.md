@@ -32,7 +32,13 @@
     deactivate
     ```
 ==================
-
+**Install AWS CLi**
+ 1. **snap install aws-cli --classic**
+ 2. **usermod -aG docker jenkins**
+    **usermod -aG docker ubuntu**
+    **checks the modifications below location**
+    **cat /etc/group/**
+    
  **FLOW CHART**
 
 ![alt text](Images/image-1.png)

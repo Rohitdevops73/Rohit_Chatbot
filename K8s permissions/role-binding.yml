@@ -6,7 +6,8 @@ metadata:
 subjects:
 - kind: ServiceAccount
   name: jenkins
-  apiGroup: rbac.authorization.k8s.io
+  namespace: chatbot
+  apiGroup: ""
 roleRef:
   kind: Role
   name: app-role 

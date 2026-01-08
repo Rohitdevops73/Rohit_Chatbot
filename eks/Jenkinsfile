@@ -54,7 +54,7 @@ pipeline{
             steps {
         script {
             def bucketName = "rohitchatbot-terraform-backup-bucket"
-            def region     = "ap-south-1" // adjust as per your region
+            def region     = "ap-south-1" 
             def statePath  = "eks/terraform.tfstate"
             def s3Prefix   = "chat-bot/eks/"
 

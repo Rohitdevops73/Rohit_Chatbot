@@ -50,15 +50,42 @@ pipeline{
                 }
             }
         }
-        stage('Backup-Stage'){
-            steps{
-                sh '''
-                pwd
-                cd eks/
-                aws s3 cp terraform.tfstate s3://rohitchatbot-terraform-backup-bucket/chat-bot/eks/
-                '''
-            }
+      stage('Backup Terraform State') {
+    steps {
+        script {
+            def bucketName = "rohitchatbot-terraform-backup-bucket"
+            def region     = "ap-south-1" // adjust as per your region
+            def statePath  = "eks/terraform.tfstate"
+            def s3Prefix   = "chat-bot/eks/"
+
+            sh """
+            # Check if bucket exists
+            if ! aws s3api head-bucket --bucket ${bucketName} 2>/dev/null; then
+                echo "Bucket does not exist. Creating bucket: ${bucketName}"
+
+                # Create bucket
+                aws s3api create-bucket \\
+                    --bucket ${bucketName} \\
+                    --region ${region} \\
+                    --create-bucket-configuration LocationConstraint=${region}
+
+                echo "Bucket created successfully: ${bucketName}"
+
+                # Enable versioning
+                aws s3api put-bucket-versioning \\
+                    --bucket ${bucketName} \\
+                    --versioning-configuration Status=Enabled
+
+                echo "Versioning enabled on bucket: ${bucketName}"
+            else
+                echo "Bucket already exists: ${bucketName}"
+            fi
+
+            # Upload the state file
+            aws s3 cp ${statePath} s3://${bucketName}/${s3Prefix}
+            """
         }
     }
 }
+
 

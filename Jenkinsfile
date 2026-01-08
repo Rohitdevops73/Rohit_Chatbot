@@ -49,11 +49,12 @@ pipeline{
                 '''
             }
         }
-        stage('Cluster-update'){
-            steps{
+        stage('Cluster-Update') {
+            steps {
                 sh '''
-                echo "Updating the EKS cluster..."
-                aws eks update-kubeconfig --region ${AWS_REGION}  --name ${CLUSTER_NAME}
+                    aws eks update-kubeconfig \
+                      --region ${AWS_REGION} \
+                      --name ${CLUSTER_NAME}
                 '''
             }
         }

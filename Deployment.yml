@@ -1,5 +1,44 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-
+  name: rohit-chatbot
+  labels:
+    app: rohit-chatbot
+  
 spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: rohit-chatbot
+  template:
+    metadata:
+      labels:
+        app: rohit-chatbot
+    spec:
+      containers:
+      - name: rohit-chatbot
+        image: replace
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 8501
+        resources:
+          requests:
+            cpu: 250m
+            memory: 512Mi
+          limits:
+            cpu: 500m
+            memory: 1Gi
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: rohit-chatbot-service
+spec:
+  type: LoadBalancer
+  selector: 
+    app: rohit-chatbot
+  ports:
+  - protocol: TCP
+    port: 80
+    targetPort: 8501

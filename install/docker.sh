@@ -47,6 +47,8 @@ EOF
 dockerStatus=$(systemctl status docker | awk '/Active/ {print $3}' | tr -d "[()]")
 dockerVersion=$(docker -v | awk '/version/ {print $3}' | tr -d ",")
 
+usermod -aG docker jenkins
+usermod -aG docker ubuntu
 # Print the status and version
 echo "The Docker status is $dockerStatus"
 echo "The Docker version is $dockerVersion"

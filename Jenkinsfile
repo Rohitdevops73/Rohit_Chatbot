@@ -49,12 +49,11 @@ pipeline{
                 '''
             }
         }
-        stage('Cluster-Update') {
-            steps {
+        stage('Cluster-update'){
+            steps{
                 sh '''
-                    aws eks update-kubeconfig \
-                      --region ${AWS_REGION} \
-                      --name ${CLUSTER_NAME}
+                echo "Updating the EKS cluster..."
+                aws eks update-kubeconfig --region ${AWS_REGION}  --name ${CLUSTER_NAME}
                 '''
             }
         }
@@ -62,7 +61,7 @@ pipeline{
             steps{
                 withKubeConfig(caCertificate: '', clusterName: ' rohitchatbot-eks-cluster', contextName: '', credentialsId: 'kube', namespace: 'chatbot', restrictKubeConfigAccess: false, serverUrl: 'https://AC34E1B7B9F657A1F88959E715CB29AD.gr7.ap-south-1.eks.amazonaws.com') {
                     sh '''
-                    sed -i 's|replace|${IMAGE_NAME}|g' Deployment.yaml
+                    sed -i 's|replace|${IMAGE_NAME}|g' Deployment.yml
                     echo "Deploying to EKS..."
                     kubectl apply -f Deployment.yaml -n ${NAMESPACE}
                     '''

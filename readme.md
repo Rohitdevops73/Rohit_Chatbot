@@ -50,8 +50,7 @@
 
  **FLOW CHART**
 
-![alt text](Images/image-1.png)
-
+![alt text](Images/image.png)
 
 
 ![alt text](Images/image-2.png)

@@ -5,7 +5,7 @@ from langchain_core.output_parsers import StrOutputParser
 from langchain_core.prompts import ChatPromptTemplate
 from langchain_openai import OpenAI
 
-st.title('Welcome to Rohit chatbot')
+st.title('Welcome to Madhu chatbot')
 
 prompt=ChatPromptTemplate.from_messages(
     [

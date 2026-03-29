@@ -59,7 +59,7 @@ pipeline{
         }
         stage('Deploy to EKS'){
             steps{
-                withKubeConfig(caCertificate: '', clusterName: 'rohitchatbot-eks-cluster', contextName: '', credentialsId: 'kube', namespace: 'chatbot', restrictKubeConfigAccess: false, serverUrl: 'https://AC34E1B7B9F657A1F88959E715CB29AD.gr7.ap-south-1.eks.amazonaws.com') {
+                withKubeConfig(caCertificate: '', clusterName: 'rohitchatbot-eks-cluster', contextName: '', credentialsId: 'kube', namespace: 'chatbot', restrictKubeConfigAccess: false, serverUrl: 'https://E8E4811C7739A4659843F539967769DA.gr7.ap-south-1.eks.amazonaws.com') {
                     
                     sh "sed -i 's|replace|${IMAGE_NAME}|g' Deployment.yml"
                     sh "kubectl apply -f Deployment.yml -n ${NAMESPACE}"

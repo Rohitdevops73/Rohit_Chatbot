@@ -50,7 +50,7 @@ pipeline{
                 }
             }
         }
-      stage('Backup Terraform State') {
+      /*stage('Backup Terraform State') {
             steps {
         script {
             def bucketName = "rohitchatbot-terraform-backup-bucket"
@@ -86,7 +86,8 @@ pipeline{
             """
         }
       }
-}
+}*/
+
     }
 
 }

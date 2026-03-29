@@ -1,7 +1,6 @@
 # Provider
 provider "aws"{
     region = "ap-south-1"
-    region = "us-east-1"
 }
 # vpc creation
 resource "aws_vpc" "rohitchatbot_vpc"{
@@ -54,9 +53,7 @@ resource "aws_subnet" "rohitchatbot_subnet" {
     # security group creation
     resource "aws_security_group" "rohitchatbot_cluster_sg" {
         vpc_id = aws_vpc.rohitchatbot_vpc.id
-             
- resource "aws"vpc" "rohit-chatbot"{
-   
+
         egress {
             from_port = 0
             to_port = 0
@@ -187,7 +184,3 @@ resource "aws_subnet" "rohitchatbot_subnet" {
             
     }
 
-   
-
-    
- }
